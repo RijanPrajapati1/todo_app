@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app/screen/Task/task_card.dart';
@@ -6,15 +7,6 @@ import 'package:todo_app/screen/Task/viewtask_screen.dart';
 import '../../const/const.dart';
 import '../../model/task_model.dart';
 import '../../provider/task_view_model.dart';
-
-enum TaskCategory {
-  Food,
-  Workout,
-  Work,
-  Timer,
-  Study,
-  None,
-}
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -25,6 +17,7 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   final TaskViewModel _viewModel = TaskViewModel();
+  late String _currentUserId = FirebaseAuth.instance.currentUser!.uid; // Initialize _currentUserId
 
   Color _getCategoryColor(String category) {
     switch (category) {
@@ -43,6 +36,13 @@ class _TaskScreenState extends State<TaskScreen> {
       default:
         return Color(0xffffffff);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Get current user's ID when the widget initializes
+    _currentUserId = FirebaseAuth.instance.currentUser!.uid;
   }
 
   @override
@@ -65,7 +65,7 @@ class _TaskScreenState extends State<TaskScreen> {
         ),
       ),
       body: StreamBuilder(
-        stream: _viewModel.getTasksStream(),
+        stream: _viewModel.getTasksStream(_currentUserId), // Pass current user's ID here
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());

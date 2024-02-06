@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../const/const.dart';
@@ -15,6 +16,7 @@ class _AddtaskState extends State<Addtask> {
   bool imp = false;
   TextEditingController _title = TextEditingController();
   TextEditingController _description = TextEditingController();
+  String? userId = FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -152,13 +154,13 @@ class _AddtaskState extends State<Addtask> {
               ElevatedButton(
                 onPressed: () {
                   FirebaseFirestore.instance.collection("Tasks").add({
+                    "userId": userId, // Include the user ID
                     "title": _title.text.toString(),
                     "description": _description.text.toString(),
                     "category": category[idx],
                     "important": imp,
                     "check": false,
-                    "time":
-                    "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().hour <= 12 ? "AM" : "PM"}"
+                    "time": "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().hour <= 12 ? "AM" : "PM"}"
                   });
                   Navigator.pop(context);
                 },

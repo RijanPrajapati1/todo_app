@@ -5,8 +5,8 @@ import '../repository/task_repository.dart';
 class TaskViewModel {
   final TaskRepository _repository = TaskRepository();
 
-  Stream<QuerySnapshot> getTasksStream() {
-    return _repository.getTasksStream();
+  Stream<QuerySnapshot> getTasksStream(String userId) {
+    return _repository.getTasksStream(userId); // Pass userId to repository method
   }
 
   Future<void> deleteTask(String taskId) {
