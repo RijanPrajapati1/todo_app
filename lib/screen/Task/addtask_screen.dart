@@ -1,13 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:todo_app/main.dart';
-import 'package:todo_app/screen/Task/home.dart';
-import 'package:todo_app/screen/Task/addtask_screen.dart';
-
 
 import '../../const/const.dart';
-
 
 class Addtask extends StatefulWidget {
   const Addtask({Key? key}) : super(key: key);
@@ -48,12 +42,10 @@ class _AddtaskState extends State<Addtask> {
     Widget label(String text, double size, FontWeight fontWeight) {
       return Text(
         text,
-        style: GoogleFonts.robotoCondensed(
-          textStyle: TextStyle(
-            fontSize: size,
-            color: Colors.white,
-            fontWeight: fontWeight,
-          ),
+        style: TextStyle(
+          fontSize: size,
+          color: Colors.white,
+          fontWeight: fontWeight,
         ),
       );
     }
@@ -66,14 +58,10 @@ class _AddtaskState extends State<Addtask> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: h / 30,
-              ),
+              SizedBox(height: h / 30),
               label("Create", 40, FontWeight.bold),
               label("New Task", 40, FontWeight.bold),
-              SizedBox(
-                height: h / 30,
-              ),
+              SizedBox(height: h / 30),
               label("Task title", 20, FontWeight.normal),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -88,7 +76,7 @@ class _AddtaskState extends State<Addtask> {
                   child: Center(
                     child: TextFormField(
                       controller: _title,
-                      style: GoogleFonts.robotoCondensed(
+                      style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -117,9 +105,7 @@ class _AddtaskState extends State<Addtask> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: h / 30,
-              ),
+              SizedBox(height: h / 30),
               label("Description", 20, FontWeight.normal),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -133,7 +119,7 @@ class _AddtaskState extends State<Addtask> {
                   child: TextFormField(
                     maxLines: 10,
                     controller: _description,
-                    style: GoogleFonts.robotoCondensed(color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Add title",
@@ -144,9 +130,7 @@ class _AddtaskState extends State<Addtask> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: h / 30,
-              ),
+              SizedBox(height: h / 30),
               ElevatedButton(
                 onPressed: () {
                   setState(() {
@@ -161,31 +145,22 @@ class _AddtaskState extends State<Addtask> {
                   primary: Colors.red,
                 ),
               ),
-              SizedBox(
-                height: h / 30,
-              ),
+              SizedBox(height: h / 30),
               label("Category", 20, FontWeight.normal),
-              Wrap(
-                children: buttons,
-              ),
-              SizedBox(
-                height: h / 30,
-              ),
+              Wrap(children: buttons),
+              SizedBox(height: h / 30),
               ElevatedButton(
                 onPressed: () {
                   FirebaseFirestore.instance.collection("Tasks").add({
                     "title": _title.text.toString(),
                     "description": _description.text.toString(),
-                    "category": idx,
+                    "category": category[idx],
                     "important": imp,
                     "check": false,
                     "time":
                     "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().hour <= 12 ? "AM" : "PM"}"
                   });
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
+                  Navigator.pop(context);
                 },
                 child: Text("Add Task"),
                 style: ElevatedButton.styleFrom(
@@ -199,3 +174,4 @@ class _AddtaskState extends State<Addtask> {
     );
   }
 }
+

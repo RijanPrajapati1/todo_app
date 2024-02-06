@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class TaskModel {
   final String title;
   final String description;
-  final String category;
+  final String category;  // Update this to String
   final bool important;
   final String time;
   final bool check;
@@ -17,17 +17,27 @@ class TaskModel {
     required this.check,
   });
 
-  // Add a factory constructor to create TaskModel from DocumentSnapshot
   factory TaskModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+
+    if (data == null) {
+      return TaskModel(
+        title: '',
+        description: '',
+        category: '',
+        important: false,
+        time: '',
+        check: false,
+      );
+    }
+
     return TaskModel(
-      title: data['title'],
-      description: data['description'],
-      category: data['category'],
-      important: data['important'],
-      time: data['time'].toString(), // Convert to String
-      check: data['check'],
+      title: data['title'] ?? '',
+      description: data['description'] ?? '',
+      category: data['category']?.toString() ?? '',
+      important: data['important'] ?? false,
+      time: data['time']?.toString() ?? '',
+      check: data['check'] ?? false,
     );
   }
-
 }

@@ -31,10 +31,10 @@ final List<String> category = [
   "None"
 ];
 final List<String> path = [
-  "assets/images/food.png",
-  "assets/images/workout.png",
-  "assets/images/work.png",
-  "assets/images/clock.png",
-  "assets/images/study.png",
-  "assets/images/none.png",
+  "asset/image/todo.png",
+  "asset/image/todo.png",
+  "asset/image/todo.png",
+  "asset/image/todo.png",
+  "asset/image/todo.png",
+  "asset/image/todo.png",
 ];

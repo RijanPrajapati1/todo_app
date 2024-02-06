@@ -23,9 +23,24 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
     super.initState();
     _title = TextEditingController(text: widget.Document["title"]);
     _description = TextEditingController(text: widget.Document["description"]);
-    idx = widget.Document["category"];
+
+    // Check if category is a string
+    if (widget.Document["category"] is String) {
+      // Find the index of the category in the list
+      idx = category.indexOf(widget.Document["category"] as String);
+
+      // If the category is not found, provide a default index (e.g., 0)
+      if (idx == -1) {
+        idx = 0;
+      }
+    } else {
+      // If the category is not a string, provide a default index (e.g., 0)
+      idx = 0;
+    }
+
     imp = widget.Document["important"];
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,26 +193,31 @@ class _ViewTaskScreenState extends State<ViewTaskScreen> {
               SizedBox(
                 height: h / 30,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseFirestore.instance
-                      .collection("Tasks")
-                      .doc(widget.id)
-                      .update({
-                    "title": _title.text.toString(),
-                    "description": _description.text.toString(),
-                    "category": idx,
-                    "important": imp,
-                    "time":
-                    "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().hour <= 12 ? "AM" : "PM"}"
-                  });
+            ElevatedButton(
+              onPressed: () {
+                FirebaseFirestore.instance
+                    .collection("Tasks")
+                    .doc(widget.id)
+                    .update({
+                  "title": _title.text.toString(),
+                  "description": _description.text.toString(),
+                  "category": category[idx], // Update this line
+                  "important": imp,
+                  "time": "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().hour <= 12 ? "AM" : "PM"}",
+                })
+                    .then((_) {
                   Navigator.pop(context);
-                },
-                child: Text("Update Task"),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                ),
+                })
+                    .catchError((error) {
+                  print("Failed to update task: $error");
+                  // Handle the error, show a snackbar, etc.
+                });
+              },
+              child: Text("Update Task"),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
               ),
+            )
             ],
           ),
         ),

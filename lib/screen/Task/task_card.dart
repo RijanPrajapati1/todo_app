@@ -9,6 +9,7 @@ class TaskCard extends StatefulWidget {
   final bool imp;
   final bool? check;
   final String id;
+  final Color categoryColor;
 
   TaskCard({
     Key? key,
@@ -19,6 +20,7 @@ class TaskCard extends StatefulWidget {
     required this.imp,
     required this.check,
     required this.id,
+    required this.categoryColor,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class _TaskCardState extends State<TaskCard> {
       height: h / 10,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
+        color: widget.categoryColor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,6 +49,7 @@ class _TaskCardState extends State<TaskCard> {
               Container(
                 margin: EdgeInsets.all(h / 144),
                 width: w / 8,
+                child: widget.check ?? false ? Icon(Icons.check, color: Colors.white) : null,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

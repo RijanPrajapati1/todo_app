@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screen/Task/addtask_screen.dart';
 import 'package:todo_app/screen/Task/home.dart';
-import '../formscreen/form_screen.dart';
+
+import '../Profile/profile_screen.dart';
 import '../screen/Login/login_screen.dart';
 import '../screen/Login/signup_screen.dart';
 import '../screen/Task/task_screen.dart';
@@ -16,8 +17,8 @@ class route_generator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case "/signup": // Add a case for SignUpScreen
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-      case "/form":
-        return MaterialPageRoute(builder: (_) => const form_screen());
+      case "/profile":
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
       case "/task_screen":
         return MaterialPageRoute(builder: (_) => TaskScreen());
       case "/addtask":
