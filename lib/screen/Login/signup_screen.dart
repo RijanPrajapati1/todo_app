@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../model/user_model.dart';
 import '../../../repository/user_repository.dart';
+import 'login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -263,15 +264,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to login screen
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      "Already have an account? Login",
-                      style: TextStyle(color: Colors.blue),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account? ",
+                        style: TextStyle(color: Colors.grey.shade800),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, LoginScreen.routeName);
+                        },
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),

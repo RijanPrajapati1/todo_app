@@ -3,6 +3,8 @@ import 'package:todo_app/screen/Login/signup_screen.dart';
 import 'package:todo_app/screen/Task/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'forgot_password.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   static const String routeName = "/login";
@@ -153,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Spacer(),
                       GestureDetector(
                         onTap: () {
-                          // Add logic for "Forgot Password"
+                          Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
                         },
                         child: const Text(
                           "Forgot Password?",
@@ -182,15 +184,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigate to signup screen
-                      Navigator.pushNamed(context, SignUpScreen.routeName);
-                    },
-                    child: const Text(
-                      "Don't have an account? Signup",
-                      style: TextStyle(color: Colors.blue),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account? ",
+                        style: TextStyle(color: Colors.grey.shade800),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                        },
+                        child: Text(
+                          "Signup",
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),

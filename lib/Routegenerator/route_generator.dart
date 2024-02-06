@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screen/Login/forgot_password.dart';
 import 'package:todo_app/screen/Task/addtask_screen.dart';
 import 'package:todo_app/screen/Task/home.dart';
 
@@ -21,6 +22,8 @@ class route_generator {
         return MaterialPageRoute(builder: (_) => ProfileScreen());
       case "/task_screen":
         return MaterialPageRoute(builder: (_) => TaskScreen());
+      case "/forgot":
+        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
       case "/addtask":
         return MaterialPageRoute(builder: (_) => Addtask());
       case "/home":

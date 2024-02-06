@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/Routegenerator/route_generator.dart';
 import 'package:todo_app/provider/user_view_model.dart';
 import 'package:todo_app/screen/Login/login_screen.dart';
+import 'package:todo_app/screen/splashscreen/splash_screen.dart';
  // Import the HomeScreen
 import 'firebase_options.dart';
 
@@ -29,8 +30,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
-          initialRoute: LoginScreen.routeName,
-          onGenerateRoute: route_generator.generateRoute,
+          home: SplashScreen(), // Navigate to SplashScreen first
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
@@ -40,4 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
